@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.5s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded-xl shadow-2xl w-96 transform hover:scale-105 transition-transform duration-300 ease-in-out">
+        <h1 class="text-3xl font-bold mb-6 text-center text-indigo-600 fade-in-up">Age Calculator</h1>
+        <div class="mb-6 fade-in-up" style="animation-delay: 0.2s;">
+            <label for="dob" class="block text-sm font-medium text-gray-700">Enter your date of birth:</label>
+            <input type="date" id="dob" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-all duration-300 ease-in-out">
+        </div>
+        <button onclick="calculateAge()" class="bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600 w-full transition-transform duration-300 ease-in-out hover:scale-105 fade-in-up" style="animation-delay: 0.4s;">
+            Calculate Age
+        </button>
+        <div id="result" class="mt-6 text-lg font-semibold text-center text-gray-700 fade-in-up" style="animation-delay: 0.6s;"></div>
+    </div>
+
+    <script>
+        function calculateAge() {
+    const dobInput = document.getElementById('dob').value;
+    const resultDiv = document.getElementById('result');
+
+    if (!dobInput) {
+        resultDiv.textContent = "Please enter your date of birth.";
+        return;
+    }
+
+    const dob = new Date(dobInput);
+    const today = new Date();
+
+    let age = today.getFullYear() - dob.getFullYear();
+    const monthDiff = today.getMonth() - dob.getMonth();
+    const dayDiff = today.getDate() - dob.getDate();
+
+    if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+        age--;
+    }
+
+    resultDiv.textContent = `You are ${age} years old.`;
+    
+    resultDiv.classList.add('fade-in-up');
+    resultDiv.style.animationDelay = '0s';
+
+  
+    setTimeout(() => {
+        resultDiv.classList.remove('fade-in-up');
+    }, 500);  
+}
+
+    </script>
+</body>
+</html>
